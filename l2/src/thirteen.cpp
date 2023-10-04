@@ -1,25 +1,8 @@
 #include <iostream>
+#include <cmath>
 
 #include "thirteen.h"
 
-void Thirteen::push_num(short n) {
-    int64_t i = 0;
-    for (i = 0; i < this->capacity; ++i) { // should never end because of the for loop conditions
-        if (this->values[i] == '\0') {
-            break;
-        }
-    }
-
-    this->values[i] = ALPHABET[n % 13];
-    if (i + 1 == this->capacity) {
-        this->resize(this->capacity * 2);
-    }
-    this->values[i + 1] = '\0';
-
-    if (n > 12) {
-        this->push_num(n / 13);
-    }
-}
 
 void Thirteen::resize(int64_t new_capacity) {
     if (new_capacity < this->capacity) {
@@ -54,51 +37,64 @@ Thirteen::Thirteen(const size_t &n, unsigned char v) {
     this->values = new unsigned char[this->capacity];
 
     std::fill_n(this->values, this->capacity - 1, v);
-    this->values[this->capacity] = '\0';
+    this->values[this->capacity - 1] = '\0';
 }
 
 Thirteen::Thirteen(const std::initializer_list<unsigned char>& l) {
-    int64_t len = (int64_t) l.size();
+    int64_t len = l.size();
     if (len == 0) { *this = Thirteen(); return; }
 
     this->capacity = len + 1;
     this->values = new unsigned char[this->capacity];
 
     for (int64_t i = 0; i < len; ++i) {
-        this->values[i] = *(l.begin() + i);
+        this->values[i] = *(l.end() - 1 - i);
     }
 
-    this->values[this->capacity] = '\0';
-    std::cout << "LAST VALUE IS " << this->values[this->capacity] << '\n';
+    this->values[this->capacity - 1] = '\0';
 }
 
 Thirteen::Thirteen(const std::string& s) {
+    int64_t len = s.size();
+    if (len == 0) { *this = Thirteen(); return; }
 
+    this->capacity = len + 1;
+    this->values = new unsigned char[this->capacity];
+
+    for (int64_t i = 0; i < len; ++i) {
+        this->values[i] = s[len - 1 - i];
+    }
+
+    this->values[this->capacity - 1] = '\0';
 }
 
-
+// Copy constructor
 Thirteen::Thirteen(const Thirteen& other) {
-
+    *this = other;
 }
 
+// Move constructor
 Thirteen::Thirteen(Thirteen&& other) noexcept {
-
+    *this = std::move(other);
 }
 
 
+// Destructor
 Thirteen::~Thirteen() noexcept {
-
+    this->capacity = 0;
+    if (this->values != nullptr) delete[] this->values;
 }
 
 
-// Copy
+// Copy assignment
 Thirteen& Thirteen::operator=(const Thirteen& other) {
     if (this == &other)
         return *this;
 
     if (this->capacity != other.capacity) {
         unsigned char *temp = new unsigned char[other.capacity];
-        delete[] this->values;
+        if (this->values != nullptr) delete[] this->values;
+
         this->values = temp;
         this->capacity = other.capacity;
     }
@@ -107,12 +103,12 @@ Thirteen& Thirteen::operator=(const Thirteen& other) {
     return *this;
 }
 
-// Move
+// Move assignment
 Thirteen& Thirteen::operator=(Thirteen&& other) noexcept {
     if (this == &other)
         return *this;
 
-    delete[] this->values;
+    if (this->values != nullptr) delete[] this->values;
     this->values = other.values;
     other.values = nullptr;
 
@@ -153,28 +149,40 @@ bool Thirteen::operator!=(Thirteen& other) noexcept {
 
 Thirteen Thirteen::operator+(Thirteen& other) {
     Thirteen temp;
-    int64_t max = std::max(this->capacity, other.capacity);
-    std::cout << "max = " << max << '\n';
-    short a = 0, b = 0;
 
-    for (int64_t i = 0; i < max; ++i) {
+    int64_t max = std::max(this->capacity, other.capacity);
+    uint64_t a = 0, b = 0, remainder = 0;
+
+    for (int64_t i = 0; i < max - 1; ++i) {
         a = b = 0;
 
-        if (this->capacity > i) a = REV_ALPHABET.at(this->values[i]);
-        if (other.capacity > i) b = REV_ALPHABET.at(other.values[i]);
+        if (i < this->capacity - 1) a = REV_ALPHABET.at(this->values[i]);
+        if (i < other.capacity - 1) b = REV_ALPHABET.at(other.values[i]);
 
-        temp.push_num(a + b);
+        if (remainder == 1) a += 1;
+
+        remainder = (a + b) / 13;
+
+        if (temp.capacity - 1 <= i) {
+            temp.resize(temp.capacity * 2);
+        }
+
+        int64_t num = a + b;
+
+        temp.values[i] = ALPHABET[num % 13];
+        temp.values[i + 1] = ALPHABET[remainder];
     }
+
+    if (remainder) temp.values[max] = '\0';
+    else temp.values[max - 1] = '\0';
 
     return temp;
 }
 
 std::ostream& operator<<(std::ostream& os, const Thirteen& t) {
-    bool after_zero = false;
-
     for (int64_t i = 0; i < t.capacity; ++i) {
         if (t.values[i] == '\0') {
-            for (int64_t j = 1; j <= i; ++i) {
+            for (int64_t j = 1; j <= i; ++j) {
       	        os << t.values[i - j];
             }
             break;
