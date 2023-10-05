@@ -147,6 +147,37 @@ bool Thirteen::operator!=(Thirteen& other) noexcept {
     return !(*this == other);
 }
 
+bool Thirteen::operator>(Thirteen& other) noexcept {
+    int64_t max = std::max(this->capacity, other.capacity);
+
+    for (int64_t i = 0; i < max; ++i) {
+        if (i < this->capacity && i < other.capacity) {
+            unsigned char c1 = this->values[i], c2 = other.values[i];
+            if (c1 == '\0' && c2 != '\0') {
+                return false;
+            } else if (c1 != '\0' && c2 == '\0') {
+                return true;
+            } else if (c1 == '\0' && c2 == '\0') {
+                for (int64_t j = i - 1; j >= 0; --j) {
+                    if (this->values[j] > other.values[j]) return true;
+                    else return false;
+                }
+            }
+        } else if (i < this->capacity) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    return false;
+}
+
+bool Thirteen::operator<(Thirteen& other) noexcept {
+    return other > *this;
+}
+
+
 Thirteen Thirteen::operator+(Thirteen& other) {
     Thirteen temp;
 
@@ -178,6 +209,46 @@ Thirteen Thirteen::operator+(Thirteen& other) {
 
     return temp;
 }
+
+Thirteen Thirteen::operator-(Thirteen& other) {
+    int64_t max = std::max(this->capacity, other.capacity);
+
+    Thirteen temp = Thirteen(max, '\0');
+
+    uint64_t a = 0, b = 0, remainder = 0;
+    int64_t i = 0;
+
+    for (i = 0; i < max - 1; ++i) {
+        a = b = 0;
+
+        if (i < this->capacity - 1) a = REV_ALPHABET.at(this->values[i]);
+        if (i < other.capacity - 1) b = REV_ALPHABET.at(other.values[i]);
+        
+        if (remainder > 0) a -= remainder;
+
+        int64_t num = a - b;
+
+        if (num < 0) {
+            if (this->values[i + 1] == '\0') {
+                temp.values[0] = '0';
+                temp.values[1] = '\0';
+                break;
+            }
+            remainder = 1;
+            temp.values[i] = ALPHABET[13 + num % 13];
+        } else {
+            remainder = 0;
+            temp.values[i] = ALPHABET[num % 13];
+        }
+    }
+
+    for (; i > 1; --i) { // i > 2 because we are not touching the first zero if it is present
+        if (temp.values[i] == '\0' && temp.values[i - 1] == '0') temp.values[i - 1] = '\0';
+    }
+
+    return temp;
+}
+
 
 std::ostream& operator<<(std::ostream& os, const Thirteen& t) {
     for (int64_t i = 0; i < t.capacity; ++i) {

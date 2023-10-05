@@ -41,20 +41,27 @@ class Thirteen {
         Thirteen(const std::initializer_list<unsigned char>& l);
         Thirteen(const std::string& s);
 
+        // Copy constructor
         Thirteen(const Thirteen& other);
+        // Move constructor
         Thirteen(Thirteen&& other) noexcept;
 
         // Destructors
         virtual ~Thirteen() noexcept;
 
         // Operators
+        // Copy assignment
         Thirteen& operator=(const Thirteen& other);
+        // Move assignment
         Thirteen& operator=(Thirteen&& other) noexcept;
 
         bool operator==(Thirteen& other) noexcept;
         bool operator!=(Thirteen& other) noexcept;
+        bool operator>(Thirteen& other) noexcept;
+        bool operator<(Thirteen& other) noexcept;
 
         Thirteen operator+(Thirteen& other);
+        Thirteen operator-(Thirteen& other);
 
         friend std::ostream& operator<<(std::ostream& os, const Thirteen& t);
 
