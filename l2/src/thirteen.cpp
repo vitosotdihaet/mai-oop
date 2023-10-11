@@ -83,6 +83,7 @@ Thirteen::Thirteen(Thirteen&& other) noexcept {
 Thirteen::~Thirteen() noexcept {
     this->capacity = 0;
     if (this->values != nullptr) delete[] this->values;
+    this->values = nullptr;
 }
 
 
@@ -119,28 +120,8 @@ Thirteen& Thirteen::operator=(Thirteen&& other) noexcept {
 }
 
 bool Thirteen::operator==(Thirteen& other) noexcept {
-    int64_t min = std::min(other.capacity, this->capacity);
-    for (int64_t i = 0; i < min; ++i) {
-        if (this->values[i] != other.values[i]) return false;
-    }
-
-    if (min == other.capacity) {
-        if (this->capacity > min) {
-            if (this->values[min + 1] == '\0') {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return true;
-        }
-    } else {
-        if (other.values[min + 1] == '\0') {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    if (*this > other || *this < other) return false;
+    return true;
 }
 
 bool Thirteen::operator!=(Thirteen& other) noexcept {
@@ -203,6 +184,7 @@ Thirteen Thirteen::operator+(Thirteen& other) {
         temp.values[i] = ALPHABET[num % 13];
         temp.values[i + 1] = ALPHABET[remainder];
     }
+
 
     if (remainder) temp.values[max] = '\0';
     else temp.values[max - 1] = '\0';

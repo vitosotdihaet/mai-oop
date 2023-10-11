@@ -78,6 +78,14 @@ TEST(Comparison, All) {
     ASSERT_TRUE(!(t1 > t1));
 }
 
+TEST(a, b) {
+    Thirteen t1 = { 'A' };
+    Thirteen t2 = { 'A' };
+
+    ASSERT_FALSE(t1 > t2);
+    ASSERT_FALSE(t1 < t2);
+}
+
 
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
