@@ -1,11 +1,10 @@
-#include "rect.h"
+#include "trapezium.h"
 
-
-Rectangle::Rectangle() {
+Trapezium::Trapezium() {
     this->points = std::vector(this->point_count(), Point());
 }
 
-Rectangle::operator double() const {
+Trapezium::operator double() const {
     Point p1 = points[0], p2 = points[1], p3 = points[2], p4 = points[3];
     double a = p1.distance(p2);
     double b = p1.distance(p3);
@@ -19,11 +18,10 @@ Rectangle::operator double() const {
     return a * b;
 }
 
-
-std::istream& operator>>(std::istream& is, Rectangle& r) {
-    for (int i = 0; i < r.point_count(); ++i) {
-        is >> r.points[i];
+std::istream& operator>>(std::istream& is, Trapezium& t) {
+    for (int i = 0; i < t.point_count(); ++i) {
+        is >> t.points[i];
     } return is;
-    // todo: check if rectangle
+    // todo: check if trapezium
 }
 
