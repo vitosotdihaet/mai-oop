@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(l2)
+project(l3)
 
 include_directories(include)
 file(GLOB SOURCES "src/*.cpp")
@@ -16,9 +16,9 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-add_executable(l2_tests ${TESTS} ${SOURCES})
+add_executable(l3_tests ${TESTS} ${SOURCES})
 target_link_libraries(
-  l2_tests
+  l3_tests
   GTest::gtest_main
 )
 
