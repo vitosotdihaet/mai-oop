@@ -16,7 +16,7 @@ class Figure {
         friend std::ostream& operator<<(std::ostream& os, Figure &f) {
             for (int i = 0; i < f.point_count(); ++i) {
                 os << f.points[i] << "; ";
-            } os << '\n';
+            } os << '\b\b \b';
             return os;
         }
         friend std::istream& operator>>(std::istream& is, Figure& f) {
