@@ -19,7 +19,12 @@ class Figure {
             } os << '\n';
             return os;
         }
-        friend std::istream& operator>>(std::istream& is, Figure& f) { return is; };
+        friend std::istream& operator>>(std::istream& is, Figure& f) {
+            for (int i = 0; i < f.point_count(); ++i) {
+                is >> f.points[i];
+            }
+            return is;
+        };
 
         virtual ~Figure() noexcept {};
 
