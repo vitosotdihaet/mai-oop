@@ -31,10 +31,10 @@ int main() {
             std::cout << "The rectangle you input was " << r << '\n';
             std::cout << "Its area = " << (double) r << '\n';
         } else if (choice == 2) {
-            Trapezium r;
-            std::cin >> r;
-            std::cout << "The trapezium you input was " << r << '\n';
-            std::cout << "Its area = " << (double) r << '\n';
+            Trapezium t;
+            std::cin >> t;
+            std::cout << "The trapezium you input was " << t << '\n';
+            std::cout << "Its area = " << (double) t << '\n';
         } else if (choice == 3) {
             Rhombus r;
             std::cin >> r;
@@ -46,7 +46,7 @@ int main() {
         std::cin >> s;
     }
 
-    delete(figures);
+    delete figures;
 
     return 0;
 }

@@ -3,22 +3,23 @@
 #include <cmath>
 
 
-Point::Point(): x_(0.0), y_(0.0) {}
+Point::Point(): x(0.), y(0.) {}
 
-Point::Point(double x, double y): x_(x), y_(y) {}
+Point::Point(double x, double y): x(x), y(y) {}
 
 double Point::distance(Point &other) {
-    double dx = (other.x_ - x_);
-    double dy = (other.y_ - y_);
+    double dx = (other.x - this->x);
+    double dy = (other.y - this->y);
+
     return std::sqrt(dx * dx + dy * dy);
 }
 
 std::istream& operator>>(std::istream& is, Point& p) {
-    is >> p.x_ >> p.y_;
+    is >> p.x >> p.y;
     return is;
 }
 
 std::ostream& operator<<(std::ostream& os, Point& p) {
-    os << p.x_ << ", " << p.y_;
+    os << p.x << ", " << p.y;
     return os;
 }
