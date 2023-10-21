@@ -11,6 +11,7 @@ int main() {
     std::cin >> n;
 
     Figure* figures = new Figure[n];
+    double s = 0;
 
     for (int i = 0; i < n; ++i) {
         std::cout << "Select a figure to append (" << i + 1 << '/' << n << "):\n";
@@ -28,6 +29,7 @@ int main() {
             std::cin >> r;
             std::cout << "The rectangle you input was " << r << '\n';
             std::cout << "Its area = " << (double) r << '\n';
+            s += r;
 
             figures[i] = std::move(r);
         } else if (choice == 2) {
@@ -35,6 +37,7 @@ int main() {
             std::cin >> t;
             std::cout << "The trapezium you input was " << t << '\n';
             std::cout << "Its area = " << (double) t << '\n';
+            s += t;
 
             figures[i] = std::move(t);
         } else if (choice == 3) {
@@ -42,10 +45,13 @@ int main() {
             std::cin >> r;
             std::cout << "The rhombus you input was " << r << '\n';
             std::cout << "Its area = " << (double) r << '\n';
+            s += r;
 
             figures[i] = std::move(r);
         }
     }
+
+    std::cout << "The total area of all the figures = " << s << '\n';
 
     delete figures;
 
