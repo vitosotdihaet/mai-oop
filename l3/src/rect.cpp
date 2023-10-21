@@ -27,7 +27,6 @@ std::istream& operator>>(std::istream& is, Rectangle& r) {
     }
 
     return is;
-    // todo: check if rectangle
 }
 
 Rectangle::operator double() const {
