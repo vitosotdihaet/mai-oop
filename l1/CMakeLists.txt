@@ -3,7 +3,7 @@ project(l1)
 
 include_directories(include)
 
-add_executable(l1 main.cpp)
+add_executable(main_l1 main.cpp)
 
 
 include(FetchContent)
@@ -17,9 +17,9 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-add_executable(l1_tests tests.cpp)
+add_executable(test_l1 tests.cpp)
 target_link_libraries(
-  l1_tests
+  test_l1
   GTest::gtest_main
 )
 

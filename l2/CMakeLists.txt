@@ -16,9 +16,9 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-add_executable(l2_tests ${TESTS} ${SOURCES})
+add_executable(test_l2 ${TESTS} ${SOURCES})
 target_link_libraries(
-  l2_tests
+  test_l2
   GTest::gtest_main
 )
 
