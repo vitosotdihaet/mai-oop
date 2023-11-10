@@ -18,19 +18,20 @@ int main() {
 
     for (int i = 0; i < n; ++i) {
         std::cout << "Select a command (" << i << "/" << n << " figures):\n";
-        std::cout << "\t1) Append rectangle\n";
-        std::cout << "\t2) Append trapezium\n";
-        std::cout << "\t3) Append rhombus\n";
+        std::cout << "\t1) Append a rectangle\n";
+        std::cout << "\t2) Append a trapezium\n";
+        std::cout << "\t3) Append a rhombus\n";
         std::cout << "\t4) Delete a figure at index\n";
         std::cout << "\t5) Print whole array\n";
 
         int choice;
         std::cin >> choice;
 
-        std::cout << "Enter 4 points (8 numbers):\n";
 
         if (choice == 1) {
+            std::cout << "Enter 4 points (8 numbers):\n";
             Rectangle<TYPE> r;
+            std::cout << "Current point count = " << r.point_count() << '\n';
             std::cin >> r;
             std::cout << "The rectangle you input was " << r << '\n';
             std::cout << "Its area = " << (double) r << '\n';
@@ -38,6 +39,7 @@ int main() {
 
             figures[i] = std::make_shared<Rectangle<TYPE>>(r);
         } else if (choice == 2) {
+            std::cout << "Enter 4 points (8 numbers):\n";
             Trapezium<TYPE> t;
             std::cin >> t;
             std::cout << "The trapezium you input was " << t << '\n';
@@ -46,6 +48,7 @@ int main() {
 
             figures[i] = std::make_shared<Trapezium<TYPE>>(t);
         } else if (choice == 3) {
+            std::cout << "Enter 4 points (8 numbers):\n";
             Rhombus<TYPE> r;
             std::cin >> r;
             std::cout << "The rhombus you input was " << r << '\n';
@@ -63,12 +66,13 @@ int main() {
             --i;
         } else if (choice == 5) {
             for (int i = 0; i < figures.get_size(); ++i) {
-                std::cout << i << ": " << *figures[i] << '\n';
+                std::cout << i << ": " << figures[i].get() << '\n';
             }
             --i;
         }
     }
 
+    std::cout << "The total area of all the figures = " << figures.area() << '\n';
     std::cout << "The total area of all the figures = " << s << '\n';
 
     return 0;

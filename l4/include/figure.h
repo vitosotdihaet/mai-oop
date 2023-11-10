@@ -12,7 +12,7 @@ class Figure {
     public:
         virtual size_t point_count() const { return 0; };
 
-        operator double() const { return 0; };
+        virtual operator double() const { return 0; };
 
         friend std::ostream& operator<<(std::ostream& os, Figure<T> &f) {
             for (int i = 0; i < f.point_count(); ++i) {
@@ -20,6 +20,7 @@ class Figure {
             } os << "\b\b \b";
             return os;
         }
+
         friend std::istream& operator>>(std::istream& is, Figure<T>& f) {
             for (int i = 0; i < f.point_count(); ++i) {
                 is >> f.points[i];
@@ -28,9 +29,9 @@ class Figure {
         };
 
         virtual ~Figure() noexcept {};
-
+        
         // Copy assignment
-        Figure<T>& operator=(const Figure<T>& other) {
+        virtual Figure<T>& operator=(const Figure<T>& other) {
             if (this == &other)
                 return *this;
 
@@ -43,13 +44,34 @@ class Figure {
         }
 
         // Move assignment
-        Figure<T>& operator=(Figure<T>&& other) noexcept {
+        virtual Figure<T>& operator=(Figure<T>&& other) noexcept {
             if (this == &other) return *this;
             this->points = std::move(other.points);
             return *this;
         }
 
-        bool operator==(Figure<T>& other) noexcept {
+        Figure() noexcept {
+            std::cout << "Point count = " << point_count() << '\n';
+            points = std::vector(point_count(), Point<T>());
+        }
+
+        Figure(const Figure<T>& f) {
+            std::cout << "Construct this shaise!\n";
+            *this = f;
+        }
+        
+        Figure(const Figure<T>&& f) {
+            *this = std::move(f);
+        }
+
+        Figure(std::vector<Point<T>> p) {
+            points.clear();
+            for (size_t i = 0; i < p.size(); ++i) {
+                points.push_back(p[i]);
+            }
+        }
+
+        virtual bool operator==(Figure<T>& other) noexcept {
             if (this->point_count() != other.point_count()) return false;
             for (int i = 0; i < this->point_count(); ++i) {
                 if (this->points[i] != other.points[i]) return false;
