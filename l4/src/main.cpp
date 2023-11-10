@@ -69,8 +69,7 @@ int main() {
         }
     }
 
-    std::cout << "The total area of all the figures = " << figures.area() << '\n';
-    // std::cout << "The total area of all the figures = " << s << '\n';
+    std::cout << "The total area of all the figures = " << s << '\n';
 
     return 0;
 }
