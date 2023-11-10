@@ -9,6 +9,7 @@ template <class T>
 class Rectangle: public Figure<T> {
     public:
         Rectangle();
+        Rectangle(const Rectangle<T>& r);
         operator double() const;
         size_t point_count() const { return 4; };
 
@@ -23,6 +24,15 @@ template <class T>
 Rectangle<T>::Rectangle() {
     this->points = std::vector(this->point_count(), Point<T>());
 }
+
+
+template <class T>
+Rectangle<T>::Rectangle(const Rectangle<T>& r) {
+    for (uint64_t i = 0; i < r.points.size(); ++i) {
+        this->points.push_back(r.points[i]);
+    }
+}
+
 
 template <class T>
 std::istream& operator>>(std::istream& is, Rectangle<T>& r) {

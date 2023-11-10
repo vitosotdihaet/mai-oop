@@ -6,7 +6,7 @@
 
 
 int main() {
-    std::vector<int, Allocator<int>> v;
+    std::vector<int, HmmAllocator<int>> v;
     v.reserve(10);
 
     v.push_back(1);
@@ -27,7 +27,7 @@ int main() {
         std::cout << e << ' ';
     } std::cout << '\n';
 
-    std::map<int, int, std::less<int>, Allocator<std::pair<int, int>>> m;
+    std::map<int, int, std::less<int>, HmmAllocator<std::pair<int, int>>> m;
 
     // m.reserve?
 

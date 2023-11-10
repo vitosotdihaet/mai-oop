@@ -10,6 +10,7 @@ template <class T>
 class Trapezium: public Figure<T> {
     public:
         Trapezium();
+        Trapezium(const Trapezium<T>& t);
         operator double() const;
         size_t point_count() const { return 4; };
 
@@ -21,6 +22,14 @@ template <class T>
 Trapezium<T>::Trapezium() {
     this->points = std::vector(this->point_count(), Point<T>());
 }
+
+template <class T>
+Trapezium<T>::Trapezium(const Trapezium<T>& t) {
+    for (uint64_t i = 0; i < t.points.size(); ++i) {
+        this->points.push_back(t.points[i]);
+    }
+}
+
 
 template <class T>
 std::istream& operator>>(std::istream& is, Trapezium<T>& r) {

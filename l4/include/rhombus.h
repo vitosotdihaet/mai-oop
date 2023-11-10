@@ -9,16 +9,26 @@ template <class T>
 class Rhombus: public Figure<T> {
     public:
         Rhombus();
+        Rhombus(const Rhombus<T>& r);
         operator double() const;
         size_t point_count() const { return 4; };
 
         template <class Y>
         friend std::istream& operator>>(std::istream& is, Rhombus<Y>& r);
 };
+
 template <class T>
 Rhombus<T>::Rhombus() {
     this->points = std::vector(this->point_count(), Point<T>());
 }
+
+template <class T>
+Rhombus<T>::Rhombus(const Rhombus<T>& r) {
+    for (uint64_t i = 0; i < r.points.size(); ++i) {
+        this->points.push_back(r.points[i]);
+    }
+}
+
 
 template <class T>
 std::istream& operator>>(std::istream& is, Rhombus<T>& r)  {
