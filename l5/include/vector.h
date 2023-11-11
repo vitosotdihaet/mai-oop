@@ -6,7 +6,7 @@
 
 
 template <class T, class Allocator = std::allocator<T>>
-class MyVector {
+class Vector {
     private:
         Allocator allocator;
         size_t _size;
@@ -14,11 +14,11 @@ class MyVector {
         T* data;
 
     public:
-        MyVector() : _size(0), _capacity(0), data(nullptr) {}
+        Vector() : _size(0), _capacity(0), data(nullptr) {}
 
-        MyVector(const Allocator& alloc) : allocator(alloc), _size(0), _capacity(0), data(nullptr) {}
+        Vector(const Allocator& alloc) : allocator(alloc), _size(0), _capacity(0), data(nullptr) {}
 
-        ~MyVector() {
+        ~Vector() {
             clear();
             allocator.deallocate(data, _capacity);
         }
@@ -27,13 +27,12 @@ class MyVector {
             if (_size == _capacity) {
                 reserve(_capacity == 0 ? 1 : _capacity * 2);
             }
-            allocator.construct(data + _size, value);
+            data[_size] = value;
             ++_size;
         }
 
         void pop_back() {
             if (_size > 0) {
-                allocator.destroy(data + _size - 1);
                 --_size;
             }
         }
@@ -60,25 +59,25 @@ class MyVector {
 
         void reserve(size_t new_capacity) {
             if (new_capacity > _capacity) {
-                T* newData = allocator.allocate(new_capacity);
+                T* new_data = allocator.allocate(new_capacity);
+
                 for (size_t i = 0; i < _size; ++i) {
-                    allocator.construct(newData + i, std::move_if_noexcept(data[i]));
-                    allocator.destroy(data + i);
+                    new_data[i] = data[i];
                 }
+
                 allocator.deallocate(data, _capacity);
-                data = newData;
+
+                data = new_data;
                 _capacity = new_capacity;
             }
         }
 
         void clear() {
             for (size_t i = 0; i < _size; ++i) {
-                allocator.destroy(data + i);
+                data[i] = T();
             }
             _size = 0;
         }
-
-
 };
 
 #endif // _VECTOR_H

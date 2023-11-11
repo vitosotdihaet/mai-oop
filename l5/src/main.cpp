@@ -3,10 +3,11 @@
 #include <map>
 
 #include "allocator.h"
+#include "vector.h"
 
 
 int main() {
-    std::vector<int, HmmAllocator<int>> v;
+    Vector<int, HmmAllocator<int>> v;
     v.reserve(10);
 
     v.push_back(1);
@@ -21,15 +22,12 @@ int main() {
     v.pop_back();
     v.pop_back();
     v.pop_back();
-    v.pop_back();
 
-    for (auto e: v) {
-        std::cout << e << ' ';
+    for (int i = 0; i < v.size(); ++i) {
+        std::cout << v[i] << ' ';
     } std::cout << '\n';
 
     std::map<int, int, std::less<int>, HmmAllocator<std::pair<int, int>>> m;
-
-    // m.reserve?
 
     int64_t counter = 1;
     m.insert(std::pair<int, int>(0, 0));
