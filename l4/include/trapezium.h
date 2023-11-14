@@ -11,6 +11,9 @@ class Trapezium: public Figure<T> {
     public:
         using Figure<T>::Figure;
 
+        Trapezium();
+        Trapezium(const Trapezium<T>& t);
+
         operator double() const override;
         size_t point_count() const override { return 4; };
 
@@ -18,17 +21,17 @@ class Trapezium: public Figure<T> {
         friend std::istream& operator>>(std::istream& is, Trapezium<Y>& r);
 };
 
-// template <class T>
-// Trapezium<T>::Trapezium() {
-//     this->points = std::vector(this->point_count(), Point<T>());
-// }
+template <class T>
+Trapezium<T>::Trapezium() {
+    this->points = std::vector(this->point_count(), Point<T>());
+}
 
-// template <class T>
-// Trapezium<T>::Trapezium(const Trapezium<T>& t) {
-//     for (uint64_t i = 0; i < t.points.size(); ++i) {
-//         this->points.push_back(t.points[i]);
-//     }
-// }
+template <class T>
+Trapezium<T>::Trapezium(const Trapezium<T>& t) {
+    for (uint64_t i = 0; i < t.points.size(); ++i) {
+        this->points.push_back(t.points[i]);
+    }
+}
 
 
 template <class T>

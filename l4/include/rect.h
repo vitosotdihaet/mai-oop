@@ -10,12 +10,27 @@ class Rectangle: public Figure<T> {
     public:
         using Figure<T>::Figure;
 
+        Rectangle();
+        Rectangle(const Rectangle<T>& t);
+
         operator double() const override;
-        size_t point_count() const override { std::cout << "AYYYY\n"; return 4; }
+        size_t point_count() const override { return 4; }
 
         template <class Y>
         friend std::istream& operator>>(std::istream& is, Rectangle<Y>& r);
 };
+
+template <class T>
+Rectangle<T>::Rectangle() {
+    this->points = std::vector(this->point_count(), Point<T>());
+}
+
+template <class T>
+Rectangle<T>::Rectangle(const Rectangle<T>& t) {
+    for (uint64_t i = 0; i < t.points.size(); ++i) {
+        this->points.push_back(t.points[i]);
+    }
+}
 
 
 template <class T>

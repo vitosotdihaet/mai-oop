@@ -10,6 +10,9 @@ class Rhombus: public Figure<T> {
     public:
         using Figure<T>::Figure;
 
+        Rhombus();
+        Rhombus(const Rhombus<T>& r);
+
         operator double() const override;
         size_t point_count() const override { return 4; };
 
@@ -17,17 +20,17 @@ class Rhombus: public Figure<T> {
         friend std::istream& operator>>(std::istream& is, Rhombus<Y>& r);
 };
 
-// template <class T>
-// Rhombus<T>::Rhombus() {
-//     this->points = std::vector(this->point_count(), Point<T>());
-// }
+template <class T>
+Rhombus<T>::Rhombus() {
+    this->points = std::vector(this->point_count(), Point<T>());
+}
 
-// template <class T>
-// Rhombus<T>::Rhombus(const Rhombus<T>& r) {
-//     for (uint64_t i = 0; i < r.points.size(); ++i) {
-//         this->points.push_back(r.points[i]);
-//     }
-// }
+template <class T>
+Rhombus<T>::Rhombus(const Rhombus<T>& r) {
+    for (uint64_t i = 0; i < r.points.size(); ++i) {
+        this->points.push_back(r.points[i]);
+    }
+}
 
 
 template <class T>

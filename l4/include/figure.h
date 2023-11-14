@@ -51,12 +51,10 @@ class Figure {
         }
 
         Figure() noexcept {
-            std::cout << "Point count = " << point_count() << '\n';
             points = std::vector(point_count(), Point<T>());
         }
 
         Figure(const Figure<T>& f) {
-            std::cout << "Construct this shaise!\n";
             *this = f;
         }
         

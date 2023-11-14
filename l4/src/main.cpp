@@ -27,7 +27,6 @@ int main() {
         int choice;
         std::cin >> choice;
 
-
         if (choice == 1) {
             std::cout << "Enter 4 points (8 numbers):\n";
             Rectangle<TYPE> r;
@@ -35,7 +34,6 @@ int main() {
             std::cin >> r;
             std::cout << "The rectangle you input was " << r << '\n';
             std::cout << "Its area = " << (double) r << '\n';
-            s += r;
 
             figures[i] = std::make_shared<Rectangle<TYPE>>(r);
         } else if (choice == 2) {
@@ -44,7 +42,6 @@ int main() {
             std::cin >> t;
             std::cout << "The trapezium you input was " << t << '\n';
             std::cout << "Its area = " << (double) t << '\n';
-            s += t;
 
             figures[i] = std::make_shared<Trapezium<TYPE>>(t);
         } else if (choice == 3) {
@@ -53,7 +50,6 @@ int main() {
             std::cin >> r;
             std::cout << "The rhombus you input was " << r << '\n';
             std::cout << "Its area = " << (double) r << '\n';
-            s += r;
 
             figures[i] = std::make_shared<Rhombus<TYPE>>(r);
         } else if (choice == 4) {
@@ -65,15 +61,14 @@ int main() {
             --i;
             --i;
         } else if (choice == 5) {
-            for (int i = 0; i < figures.get_size(); ++i) {
-                std::cout << i << ": " << figures[i].get() << '\n';
+            for (int j = 0; j < figures.get_size(); ++j) {
+                if (figures[j]) std::cout << j << ": " << *(figures[j]) << '\n';
             }
             --i;
         }
     }
 
     std::cout << "The total area of all the figures = " << figures.area() << '\n';
-    std::cout << "The total area of all the figures = " << s << '\n';
 
     return 0;
 }
