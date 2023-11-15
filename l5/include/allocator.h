@@ -5,14 +5,14 @@
 
 
 template <class T>
-class HmmAllocator {
+class Allocator {
     public:
         using value_type = T;
         using pointer = T*;
         using const_pointer = const T*;
         using size_type = std::size_t;
 
-        HmmAllocator() noexcept {}
+        Allocator() noexcept {}
 
         T* allocate(size_t size) {
             T* new_pointer = static_cast<T*>(calloc(size, sizeof(T)));
@@ -30,7 +30,7 @@ class HmmAllocator {
             free(block);
         }
 
-        ~HmmAllocator() {
+        ~Allocator() {
             for (T* block : used_pointers) {
                 free(block);
             }
@@ -42,12 +42,12 @@ class HmmAllocator {
 
 
 template <class T, class U>
-constexpr bool operator==(const HmmAllocator<T> &lhs, const HmmAllocator<U> &rhs) {
+constexpr bool operator==(const Allocator<T> &lhs, const Allocator<U> &rhs) {
     return true;
 }
 
 template <class T, class U>
-constexpr bool operator!=(const HmmAllocator<T> &lhs, const HmmAllocator<U> &rhs) {
+constexpr bool operator!=(const Allocator<T> &lhs, const Allocator<U> &rhs) {
     return false;
 }
 

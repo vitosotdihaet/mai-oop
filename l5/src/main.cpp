@@ -7,7 +7,7 @@
 
 
 int main() {
-    Vector<int, HmmAllocator<int>> v;
+    Vector<int, Allocator<int>> v;
     v.reserve(10);
 
     v.push_back(1);
@@ -27,7 +27,7 @@ int main() {
         std::cout << v[i] << ' ';
     } std::cout << '\n';
 
-    std::map<int, int, std::less<int>, HmmAllocator<std::pair<int, int>>> m;
+    std::map<int, int, std::less<int>, Allocator<std::pair<int, int>>> m;
 
     int64_t counter = 1;
     m.insert(std::pair<int, int>(0, 0));
