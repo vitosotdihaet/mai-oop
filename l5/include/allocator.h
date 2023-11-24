@@ -41,15 +41,4 @@ class Allocator {
 };
 
 
-template <class T, class U>
-constexpr bool operator==(const Allocator<T> &lhs, const Allocator<U> &rhs) {
-    return true;
-}
-
-template <class T, class U>
-constexpr bool operator!=(const Allocator<T> &lhs, const Allocator<U> &rhs) {
-    return false;
-}
-
-
 #endif // MY_ALLOCATOR_H

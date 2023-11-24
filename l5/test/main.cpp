@@ -44,6 +44,9 @@ TEST(Allocator, std_map) {
         m1.insert(std::pair<int, int>(i, counter));
     }
 
+    m1.erase(4);
+    m1.erase(5);
+
     std::map<int, int> m2;
 
     counter = 1;
@@ -52,6 +55,9 @@ TEST(Allocator, std_map) {
         counter *= i;
         m2.insert(std::pair<int, int>(i, counter));
     }
+
+    m2.erase(4);
+    m2.erase(5);
 
     for (int i = 0; i < 10; ++i) {
         ASSERT_TRUE(m1[i] == m2[i]);
