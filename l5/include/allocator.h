@@ -19,7 +19,7 @@ class Allocator {
 
             if (new_pointer) {
                 used_pointers.push_back(new_pointer);
-               return new_pointer;
+                return new_pointer;
             }
 
             throw std::bad_alloc();
