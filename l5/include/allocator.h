@@ -19,7 +19,7 @@ class Allocator {
 
             if (new_pointer) {
                 used_pointers.push_back(new_pointer);
-               return new_pointer;
+                return new_pointer;
             }
 
             throw std::bad_alloc();
@@ -39,17 +39,6 @@ class Allocator {
     private:
         std::list<T*> used_pointers;
 };
-
-
-template <class T, class U>
-constexpr bool operator==(const Allocator<T> &lhs, const Allocator<U> &rhs) {
-    return true;
-}
-
-template <class T, class U>
-constexpr bool operator!=(const Allocator<T> &lhs, const Allocator<U> &rhs) {
-    return false;
-}
 
 
 #endif // MY_ALLOCATOR_H
