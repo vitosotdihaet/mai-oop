@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.10)
 project(l6)
 
 include_directories(include)
-file(GLOB SOURCES "src/*.cpp")
 file(GLOB LIB "lib/*.cpp")
 file(GLOB TESTS "test/*.cpp")
 
@@ -18,13 +17,13 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 add_library(lib_l6 ${LIB})
-add_executable(main_l6 ${SOURCES})
+# add_executable(main_l6 ${SOURCES})
 add_executable(test_l6 ${TESTS})
 
-target_link_libraries(
-  main_l6
-  lib_l6
-)
+# target_link_libraries(
+#   main_l6
+#   lib_l6
+# )
 
 target_link_libraries(
   test_l6

@@ -1,5 +1,4 @@
 #include <sstream>
-#include <atomic>
 #include <thread>
 #include <mutex>
 #include <shared_mutex>
@@ -150,6 +149,9 @@ void npc_print() {
         std::this_thread::sleep_for(1s);
         std::cout << '\n';
 #endif
+    }
+    for (int i = 0; i < MAX_Y; ++i) {
+        std::cout << '\n';
     }
 }
 

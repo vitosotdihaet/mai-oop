@@ -24,7 +24,6 @@ protected:
 };
 
 TEST_F(VisitorTest, VisitTest) {
-    // usage: attacker_visitor->visit(defender)
     ASSERT_TRUE(knight_visitor->visit(std::static_pointer_cast<Elf>(elf)));
     ASSERT_FALSE(knight_visitor->visit(std::static_pointer_cast<Druid>(druid)));
     ASSERT_FALSE(knight_visitor->visit(std::static_pointer_cast<Knight>(knight)));

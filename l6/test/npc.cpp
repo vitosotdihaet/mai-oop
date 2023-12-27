@@ -18,7 +18,6 @@ protected:
 };
 
 TEST_F(NPCTest, AcceptTest) {
-    // usage: defender->accept(attacker)
     ASSERT_TRUE(elf->accept(knight));
     ASSERT_FALSE(druid->accept(knight));
     ASSERT_FALSE(knight->accept(knight));
